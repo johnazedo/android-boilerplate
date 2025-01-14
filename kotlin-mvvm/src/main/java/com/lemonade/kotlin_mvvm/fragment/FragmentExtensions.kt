@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.lemonade.kotlin_mvvm.viewmodel.Action
 import com.lemonade.kotlin_mvvm.viewmodel.FullViewModel
+import com.lemonade.kotlin_mvvm.viewmodel.PresentationError
 import com.lemonade.kotlin_mvvm.viewmodel.State
 import com.lemonade.kotlin_mvvm.viewmodel.StateViewModel
 
@@ -22,6 +23,19 @@ inline fun <reified S: State, reified A: Action> Fragment.onActionChange(
 ) = viewModel.getAction.observe(this) { wrapper ->
     wrapper.getContent()?.let { action ->
         handleAction(action)
+    }
+}
+
+inline fun <reified S: State> Fragment.onStateChange(
+    viewModel: StateViewModel<S>,
+    crossinline handleError: (PresentationError) -> Unit,
+    crossinline handleState: (S) -> Unit
+)  {
+    viewModel.getState.observe(this) { state -> handleState(state) }
+    viewModel.getError.observe(this) { wrapper ->
+        wrapper.getContent()?.let { error ->
+            handleError(error)
+        }
     }
 }
 
