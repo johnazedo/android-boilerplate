@@ -1,4 +1,4 @@
-package com.lemonade.kotlin_mvvm
+package com.lemonade.kotlin_mvvm.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
