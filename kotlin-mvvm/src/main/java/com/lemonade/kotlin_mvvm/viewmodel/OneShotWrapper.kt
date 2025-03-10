@@ -13,6 +13,14 @@ class OneShotWrapper<out T>() {
         this.content = content
     }
 
+    /**
+     * getContent provides a way to access the content of this [OneShotWrapper] instance.
+     * If the content has already been retrieved (i.e., handled), this function will return null.
+     * Otherwise, it will return the content and mark it as handled, ensuring that it can only be
+     * retrieved once.
+     *
+     * @return The content of type T if it hasn't been handled, null otherwise.
+     */
     fun getContent(): T? {
         return if (hasBeenHandled) {
             null
@@ -22,6 +30,14 @@ class OneShotWrapper<out T>() {
         }
     }
 
+    /**
+     * onValidContent checks if the content has already been handled and if the content itself is not null.
+     * If both conditions are met, it invokes the given callback function with the non-null content.
+     * After the callback is executed, the content is marked as handled.
+     *
+     * @param callback The callback function to be executed with the content.
+     *                 It takes a single parameter of type T, which represents the content.
+     */
     fun onValidContent(callback: (T) -> Unit) {
         if(hasBeenHandled.not() && content != null) {
             callback(content!!)
