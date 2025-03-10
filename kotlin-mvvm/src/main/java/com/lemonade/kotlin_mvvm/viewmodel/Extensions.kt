@@ -11,6 +11,9 @@ import kotlinx.coroutines.withContext
 *
 * This must be used inside the function
 * viewModelScope.launch
+ *
+ * @param dispatcher The dispatcher to be used
+ * @param block The block of code to be executed inside the coroutine
 * */
 suspend inline fun <R> ViewModel.coroutineRunCatching(
     dispatcher: CoroutineDispatcher,
