@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-open class PresentationError
-open class State
-open class Action
+abstract class PresentationError
+abstract class State
+abstract class Action
 
 /**
  * FullViewModel is a pattern to create every view model with Live Data.
