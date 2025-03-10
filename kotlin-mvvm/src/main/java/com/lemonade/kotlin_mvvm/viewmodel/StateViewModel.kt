@@ -31,7 +31,7 @@ open class FullViewModel<S: State, A: Action>(
 
     protected fun performAction(block: () -> A) {
         val newAction = block()
-        _action.value = OneShotWrapper(newAction)
+        _action.value = OneShotWrapper.of(newAction)
     }
 }
 
@@ -53,13 +53,13 @@ open class StateViewModel<S: State>(
     private val _error = MutableLiveData<OneShotWrapper<PresentationError>>()
     val getError: LiveData<OneShotWrapper<PresentationError>> = _error
 
-    protected fun updateState(block: () -> S) {
+    protected fun setState(block: () -> S) {
         val newState = block()
         _state.value = newState
     }
 
-    protected fun showError(block: () -> PresentationError) {
+    protected fun setError(block: () -> PresentationError) {
         val newError = block()
-        _error.value = OneShotWrapper(newError)
+        _error.value = OneShotWrapper.of(newError)
     }
 }

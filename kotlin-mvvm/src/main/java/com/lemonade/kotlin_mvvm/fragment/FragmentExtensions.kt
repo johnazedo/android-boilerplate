@@ -21,7 +21,7 @@ inline fun <reified S: State, reified A: Action> Fragment.onActionChange(
     viewModel: FullViewModel<S, A>,
     crossinline handleAction: (A) -> Unit
 ) = viewModel.getAction.observe(this) { wrapper ->
-    wrapper.getContent()?.let { action ->
+    wrapper.onValidContent { action ->
         handleAction(action)
     }
 }
@@ -33,7 +33,7 @@ inline fun <reified S: State> Fragment.onStateChange(
 )  {
     viewModel.getState.observe(this) { state -> handleState(state) }
     viewModel.getError.observe(this) { wrapper ->
-        wrapper.getContent()?.let { error ->
+        wrapper.onValidContent { error ->
             handleError(error)
         }
     }

@@ -19,19 +19,19 @@ inline fun <reified S: State, reified A: Action> ComponentActivity.onActionChang
     viewModel: FullViewModel<S, A>,
     crossinline handleAction: (A) -> Unit
 ) = viewModel.getAction.observe(this) { wrapper ->
-    wrapper.getContent()?.let { action ->
-        handleAction(action)
+    wrapper.onValidContent {
+        action -> handleAction(action)
     }
 }
 
 inline fun <reified S: State> ComponentActivity.onStateChange(
     viewModel: StateViewModel<S>,
-    crossinline handleError: (PresentationError) -> Unit
+    crossinline handleError: (PresentationError) -> Unit,
     crossinline handleState: (S) -> Unit,
 )  {
     viewModel.getState.observe(this) { state -> handleState(state) }
     viewModel.getError.observe(this) { wrapper ->
-        wrapper.getContent()?.let { error ->
+        wrapper.onValidContent { error ->
             handleError(error)
         }
     }
