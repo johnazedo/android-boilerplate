@@ -1,4 +1,4 @@
-package com.lemonade.kotlin_mvvm
+package com.lemonade.android_boilerplate
 
 import org.junit.Test
 

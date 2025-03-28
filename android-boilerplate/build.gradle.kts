@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.lemonade.kotlin_mvvm"
+    namespace = "com.lemonade.android_boilerplate"
     compileSdk = 34
 
     defaultConfig {
