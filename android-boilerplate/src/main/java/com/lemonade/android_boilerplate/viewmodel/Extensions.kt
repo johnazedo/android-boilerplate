@@ -1,4 +1,4 @@
-package com.lemonade.kotlin_mvvm.viewmodel
+package com.lemonade.android_boilerplate.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineDispatcher

@@ -1,16 +1,16 @@
-package com.lemonade.kotlin_mvvm.fragment
+package com.lemonade.android_boilerplate.fragment
 
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.lemonade.kotlin_mvvm.viewmodel.Action
-import com.lemonade.kotlin_mvvm.viewmodel.ActionViewModel
-import com.lemonade.kotlin_mvvm.viewmodel.FullViewModel
-import com.lemonade.kotlin_mvvm.viewmodel.PresentationError
-import com.lemonade.kotlin_mvvm.viewmodel.State
-import com.lemonade.kotlin_mvvm.viewmodel.StateViewModel
-import com.lemonade.kotlin_mvvm.viewmodel.OneShotWrapper
+import com.lemonade.android_boilerplate.viewmodel.Action
+import com.lemonade.android_boilerplate.viewmodel.ActionViewModel
+import com.lemonade.android_boilerplate.viewmodel.FullViewModel
+import com.lemonade.android_boilerplate.viewmodel.PresentationError
+import com.lemonade.android_boilerplate.viewmodel.State
+import com.lemonade.android_boilerplate.viewmodel.StateViewModel
+import com.lemonade.android_boilerplate.viewmodel.OneShotWrapper
 
 /**
  * Fragment.onStateChange simplifies the process of observing state changes in a Fragment. It automatically

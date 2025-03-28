@@ -1,13 +1,13 @@
-package com.lemonade.kotlin_mvvm.activity
+package com.lemonade.android_boilerplate.activity
 
 import androidx.activity.ComponentActivity
-import com.lemonade.kotlin_mvvm.viewmodel.Action
-import com.lemonade.kotlin_mvvm.viewmodel.ActionViewModel
-import com.lemonade.kotlin_mvvm.viewmodel.FullViewModel
-import com.lemonade.kotlin_mvvm.viewmodel.PresentationError
-import com.lemonade.kotlin_mvvm.viewmodel.State
-import com.lemonade.kotlin_mvvm.viewmodel.StateViewModel
-import com.lemonade.kotlin_mvvm.viewmodel.OneShotWrapper
+import com.lemonade.android_boilerplate.viewmodel.Action
+import com.lemonade.android_boilerplate.viewmodel.ActionViewModel
+import com.lemonade.android_boilerplate.viewmodel.FullViewModel
+import com.lemonade.android_boilerplate.viewmodel.PresentationError
+import com.lemonade.android_boilerplate.viewmodel.State
+import com.lemonade.android_boilerplate.viewmodel.StateViewModel
+import com.lemonade.android_boilerplate.viewmodel.OneShotWrapper
 
 /**
  * ComponentActivity.onStateChange simplifies the process of observing state changes in a [ComponentActivity]. It

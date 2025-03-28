@@ -1,4 +1,4 @@
-package com.lemonade.kotlin_mvvm.viewmodel
+package com.lemonade.android_boilerplate.viewmodel
 
 /**
  * This class is used to ensure that state events are

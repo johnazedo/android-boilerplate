@@ -1,4 +1,4 @@
-package com.lemonade.kotlin_mvvm
+package com.lemonade.android_boilerplate
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.lemonade.kotlin_mvvm.test", appContext.packageName)
+        assertEquals("com.lemonade.android_boilerplate.test", appContext.packageName)
     }
 }

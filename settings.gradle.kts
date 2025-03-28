@@ -20,6 +20,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Kotlin MVVM"
-include(":kotlin-mvvm")
+rootProject.name = "Android Boilerplate"
+include(":android-boilerplate")
 include(":sample")
