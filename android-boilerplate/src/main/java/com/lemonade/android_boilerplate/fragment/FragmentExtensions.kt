@@ -4,6 +4,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.lemonade.android_boilerplate.activity.DirectionArgs
 import com.lemonade.android_boilerplate.viewmodel.Action
 import com.lemonade.android_boilerplate.viewmodel.ActionViewModel
 import com.lemonade.android_boilerplate.viewmodel.FullViewModel
@@ -128,4 +130,12 @@ fun Fragment.supportActionBar(): ActionBar? {
  */
 fun Fragment.setSupportActionBar(toolbar: Toolbar) {
     supportActivity()?.setSupportActionBar(toolbar)
+}
+
+fun Fragment.getString(resID: Int): String {
+    return requireContext().getString(resID)
+}
+
+fun Fragment.navigateTo(args: DirectionArgs) {
+    findNavController().navigate(args.destinationId, args.bundle, args.options)
 }
