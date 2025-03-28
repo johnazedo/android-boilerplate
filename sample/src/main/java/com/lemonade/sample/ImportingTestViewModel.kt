@@ -1,7 +1,7 @@
 package com.lemonade.sample
 
-import com.lemonade.kotlin_mvvm.viewmodel.State
-import com.lemonade.kotlin_mvvm.viewmodel.StateViewModel
+import com.lemonade.android_boilerplate.viewmodel.State
+import com.lemonade.android_boilerplate.viewmodel.StateViewModel
 
 class ImportingTestState: State()
 
