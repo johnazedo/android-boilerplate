@@ -5,8 +5,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemonade.android_boilerplate.activity.Destination
 
+/**
+ * PresentationError is a class that represents errors that
+ * need be shown to the user.
+ */
 abstract class PresentationError
+
+/**
+ * State is a class that represents the state of information's
+ * used in a screen (activity or fragment). The last state emitted should be
+ * saved to avoid lost of information, differently from actions
+ * that a one time events.
+ *
+ * It is recommended use State as a data class
+ */
 abstract class State
+
+/**
+ * Action is a class that represents events that viewModel delegate
+ * to activity or fragment and is not a state. This can be, for example,
+ * open a BottomSheet, show a Toast, execute specific function etc.
+ *
+ * It is recommended use Action as sealed class
+ */
 abstract class Action
 
 /**
@@ -26,7 +47,7 @@ sealed class ABAction<A: Action> {
  */
 open class ABViewModel<S: State, A: Action>(
     initialState: S
-) {
+): ViewModel() {
     private val _state = MutableLiveData(initialState)
     val getState: LiveData<S> = _state
 

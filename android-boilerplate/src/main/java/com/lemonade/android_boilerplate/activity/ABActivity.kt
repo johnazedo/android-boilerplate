@@ -12,7 +12,7 @@ import com.lemonade.android_boilerplate.viewmodel.State
 
 abstract class ABActivity: AppCompatActivity() {
 
-    private lateinit var navController: NavController
+    protected lateinit var navController: NavController
     protected abstract var fragmentContainerId: Int
     protected abstract var layoutId: Int
 
