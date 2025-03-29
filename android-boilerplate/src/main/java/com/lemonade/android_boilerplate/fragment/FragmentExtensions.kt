@@ -4,94 +4,39 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.lemonade.android_boilerplate.activity.Destination
+import com.lemonade.android_boilerplate.viewmodel.ABAction
+import com.lemonade.android_boilerplate.viewmodel.ABViewModel
 import com.lemonade.android_boilerplate.viewmodel.Action
-import com.lemonade.android_boilerplate.viewmodel.ActionViewModel
-import com.lemonade.android_boilerplate.viewmodel.FullViewModel
 import com.lemonade.android_boilerplate.viewmodel.PresentationError
 import com.lemonade.android_boilerplate.viewmodel.State
-import com.lemonade.android_boilerplate.viewmodel.StateViewModel
-import com.lemonade.android_boilerplate.viewmodel.OneShotWrapper
 
 /**
- * Fragment.onStateChange simplifies the process of observing state changes in a Fragment. It automatically
- * handles the observation lifecycle and ensures that the [handleState] callback is executed
- * whenever a new state of type [S] is emitted by the [viewModel].
+ * onReceiveEvent must be add into onCreate of your activity.
  *
- * @param viewModel The [StateViewModel] to observe for state changes.
- * @param handleState The callback function to be executed when a new state is emitted.
- *                    It takes a single parameter of type [S], representing the new state.
- * @param S The type of the state being observed, must implement [State].
+ * @param viewModel The ViewModel associated with the activity.
+ * @param handleState A function to handle state changes.
+ * It is not mandatory and the default value is an empty lambda.
+ * @param handleAction A function to handle action events.
+ * It is not mandatory and the default value is an empty lambda.
+ * @param handleError A function to handle presentation errors.
+ * It is not mandatory and the default value is an empty lambda.
  */
-inline fun <reified S : State> Fragment.onStateChange(
-    viewModel: StateViewModel<S>,
-    crossinline handleState: (S) -> Unit,
-) = viewModel.getState.observe(this) { state -> handleState(state) }
-
-/**
- * Fragment.onActionChange simplifies the process of observing actions in a Fragment. It automatically
- * handles the observation lifecycle and ensures that the [handleAction] callback is executed
- * whenever a new action of type [A] is emitted by the [viewModel]. It uses [OneShotWrapper] to
- * ensure that actions are only handled once.
- *
- * @param viewModel The [FullViewModel] to observe for action changes.
- * @param handleAction The callback function to be executed when a new action is emitted.
- *                     It takes a single parameter of type [A], representing the new action.
- * @param S The type of the state managed by the [FullViewModel], must implement [State].
- * @param A The type of the action being observed, must implement [Action].
- */
-inline fun <reified S : State, reified A : Action> Fragment.onActionChange(
-    viewModel: FullViewModel<S, A>,
-    crossinline handleAction: (A) -> Unit
-) = viewModel.getAction.observe(this) { wrapper ->
-    wrapper.onValidContent { action ->
-        handleAction(action)
-    }
-}
-
-/**
- * Fragment.onActionChange simplifies the process of observing actions in a Fragment. It automatically
- * handles the observation lifecycle and ensures that the [handleAction] callback is executed
- * whenever a new action of type [A] is emitted by the [viewModel]. It uses [OneShotWrapper] to
- * ensure that actions are only handled once.
- *
- * @param viewModel The [ActionViewModel] to observe for action changes.
- * @param handleAction The callback function to be executed when a new action is emitted.
- *                     It takes a single parameter of type [A], representing the new action.
- * @param A The type of the action being observed, must implement [Action].
- */
-inline fun <reified S : State, reified A : Action> Fragment.onActionChange(
-    viewModel: ActionViewModel<A>,
-    crossinline handleAction: (A) -> Unit
-) = viewModel.getAction.observe(this) { wrapper ->
-    wrapper.onValidContent { action ->
-        handleAction(action)
-    }
-}
-
-
-/**
- * Fragment.onStateChange simplifies the process of observing both state changes and errors in a Fragment.
- * It automatically handles the observation lifecycle and ensures that the [handleState] callback
- * is executed whenever a new state of type [S] is emitted, and the [handleError] callback is
- * executed whenever a [PresentationError] is emitted. It uses [OneShotWrapper] to ensure that
- * errors are only handled once.
- *
- * @param viewModel The [StateViewModel] to observe for state changes and errors.
- * @param handleError The callback function to be executed when a [PresentationError] is emitted.
- *                    It takes a single parameter of type [PresentationError].
- * @param handleState The callback function to be executed when a new state is emitted.
- *                    It takes a single parameter of type [S], representing the new state.
- * @param S The type of the state being observed, must implement [State].
- */
-inline fun <reified S : State> Fragment.onStateChange(
-    viewModel: StateViewModel<S>,
-    crossinline handleError: (PresentationError) -> Unit,
-    crossinline handleState: (S) -> Unit
-) {
+inline fun <reified S: State, reified A: Action> Fragment.onReceiveEvent(
+    viewModel: ABViewModel<S, A>,
+    crossinline handleState: (S) -> Unit = {},
+    crossinline handleAction: (A) -> Unit = {},
+    crossinline handleError: (PresentationError) -> Unit = {}
+    ) {
     viewModel.getState.observe(this) { state -> handleState(state) }
-    viewModel.getError.observe(this) { wrapper ->
-        wrapper.onValidContent { error ->
-            handleError(error)
+    viewModel.getAction.observe(this) { wrapper ->
+        wrapper.onValidContent { abAction ->
+            when (abAction) {
+                is ABAction.PerformAction<A> -> handleAction(abAction.action)
+                is ABAction.ShowError<A> -> handleError(abAction.error)
+                is ABAction.NavigateTo<A> -> navigateTo { abAction.destination }
+            }
         }
     }
 }
@@ -128,4 +73,25 @@ fun Fragment.supportActionBar(): ActionBar? {
  */
 fun Fragment.setSupportActionBar(toolbar: Toolbar) {
     supportActivity()?.setSupportActionBar(toolbar)
+}
+
+/**
+ * Fragment.getString provides a convenient way to retrieve a string resource from the application's
+ *
+ * @param resID The resource ID of the string to be retrieved.
+ * @return The string value associated with the provided resource ID.
+ */
+fun Fragment.getString(resID: Int): String {
+    return requireContext().getString(resID)
+}
+
+/**
+ * Fragment.navigateTo provides a convenient way to navigate to a destination
+ * within use the findNavController in you code.
+ *
+ * @param block A function that returns a [Destination] object.
+ */
+fun Fragment.navigateTo(block: () -> Destination ) {
+    val args = block.invoke()
+    findNavController().navigate(args.destinationId, args.bundle, args.options)
 }

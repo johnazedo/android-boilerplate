@@ -14,6 +14,8 @@ import kotlinx.coroutines.withContext
  *
  * @param dispatcher The dispatcher to be used
  * @param block The block of code to be executed inside the coroutine
+ *
+ * @return A Result object containing the result of the block of code
 * */
 suspend inline fun <R> ViewModel.coroutineRunCatching(
     dispatcher: CoroutineDispatcher,
