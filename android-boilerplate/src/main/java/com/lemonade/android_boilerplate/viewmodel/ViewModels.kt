@@ -9,13 +9,21 @@ abstract class PresentationError
 abstract class State
 abstract class Action
 
-
+/**
+ * ABAction is a sealed class that represents all types of
+ * actions that can be performed in the application.
+ */
 sealed class ABAction<A: Action> {
     data class ShowError<A: Action>(val error: PresentationError): ABAction<A>()
     data class NavigateTo<A: Action>(val destination: Destination): ABAction<A>()
     data class PerformAction<A: Action>(val action: A): ABAction<A>()
 }
 
+/**
+ * ABViewModel is a base class for all ViewModels in the application.
+ *
+ * @param initialState The initial state of the ViewModel.
+ */
 open class ABViewModel<S: State, A: Action>(
     initialState: S
 ) {
@@ -54,12 +62,26 @@ open class ABViewModel<S: State, A: Action>(
     class NoUsedAction: Action()
     class NoUsedState: State()
 
+    /**
+     * OnlyState is a subclass of ABViewModel that only handles
+     * changes of state, directions and errors.
+     *
+     * @param initialState The initial state of the ViewModel.
+     */
     open class OnlyState<S: State>(
         initialState: S
     ) : ABViewModel<S, NoUsedAction>(initialState)
 
+    /**
+     * OnlyAction is a subclass of ABViewModel that only handles
+     * changes of action, directions and errors.
+     */
     open class OnlyAction<A: Action> :
         ABViewModel<State, A>(NoUsedState())
 
+    /**
+     * Minimal is a subclass of ABViewModel that
+     * only handles changes of directions and errors.
+     */
     open class Minimal: ABViewModel<NoUsedState, NoUsedAction>(NoUsedState())
 }

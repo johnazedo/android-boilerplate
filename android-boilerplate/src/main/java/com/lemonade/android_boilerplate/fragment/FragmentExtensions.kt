@@ -12,6 +12,17 @@ import com.lemonade.android_boilerplate.viewmodel.Action
 import com.lemonade.android_boilerplate.viewmodel.PresentationError
 import com.lemonade.android_boilerplate.viewmodel.State
 
+/**
+ * onReceiveEvent must be add into onCreate of your activity.
+ *
+ * @param viewModel The ViewModel associated with the activity.
+ * @param handleState A function to handle state changes.
+ * It is not mandatory and the default value is an empty lambda.
+ * @param handleAction A function to handle action events.
+ * It is not mandatory and the default value is an empty lambda.
+ * @param handleError A function to handle presentation errors.
+ * It is not mandatory and the default value is an empty lambda.
+ */
 inline fun <reified S: State, reified A: Action> Fragment.onReceiveEvent(
     viewModel: ABViewModel<S, A>,
     crossinline handleState: (S) -> Unit = {},
@@ -64,10 +75,22 @@ fun Fragment.setSupportActionBar(toolbar: Toolbar) {
     supportActivity()?.setSupportActionBar(toolbar)
 }
 
+/**
+ * Fragment.getString provides a convenient way to retrieve a string resource from the application's
+ *
+ * @param resID The resource ID of the string to be retrieved.
+ * @return The string value associated with the provided resource ID.
+ */
 fun Fragment.getString(resID: Int): String {
     return requireContext().getString(resID)
 }
 
+/**
+ * Fragment.navigateTo provides a convenient way to navigate to a destination
+ * within use the findNavController in you code.
+ *
+ * @param block A function that returns a [Destination] object.
+ */
 fun Fragment.navigateTo(block: () -> Destination ) {
     val args = block.invoke()
     findNavController().navigate(args.destinationId, args.bundle, args.options)
