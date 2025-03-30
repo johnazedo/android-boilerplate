@@ -44,6 +44,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.0.0")
+    implementation(libs.retrofit)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.runner)
