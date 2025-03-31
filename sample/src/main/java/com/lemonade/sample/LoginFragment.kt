@@ -1,4 +1,6 @@
 package com.lemonade.sample
 
-class LoginFragment {
+import androidx.fragment.app.Fragment
+
+class LoginFragment: Fragment() {
 }

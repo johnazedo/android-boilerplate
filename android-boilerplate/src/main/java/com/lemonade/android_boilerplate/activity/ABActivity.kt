@@ -12,14 +12,13 @@ import com.lemonade.android_boilerplate.viewmodel.State
 
 abstract class ABActivity: AppCompatActivity() {
 
-    protected lateinit var navController: NavController
+    protected val navController: NavController by lazy { getNavHostFragment().navController }
     protected abstract var fragmentContainerId: Int
     protected abstract var layoutId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutId)
-        navController = getNavHostFragment().navController
     }
 
     /**
