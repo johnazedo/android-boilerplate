@@ -9,7 +9,9 @@ import com.lemonade.android_boilerplate.activity.Destination
  * PresentationError is a class that represents errors that
  * need be shown to the user.
  */
-abstract class PresentationError
+abstract class PresentationError(
+    val message: String,
+)
 
 /**
  * State is a class that represents the state of information's
@@ -73,7 +75,7 @@ open class ABViewModel<S: State, A: Action>(
         )
     }
 
-    protected fun showError(block: () -> PresentationError) {
+    protected fun <I> showError(block: () -> PresentationError) {
         val newError = block()
         _action.value = OneShotWrapper.of(
             ABAction.ShowError(newError)
