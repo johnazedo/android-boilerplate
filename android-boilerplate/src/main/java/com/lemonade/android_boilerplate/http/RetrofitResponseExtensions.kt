@@ -50,7 +50,7 @@ inline fun <T:Any> Response<T>.onFailure(block: (error: HttpException) -> Unit):
  * @param onFailure A callback with HttpException as a parameter that returns nothing.
  * @return T (data structure) if response is OK, otherwise throw HttpException.
  */
-@Throws
+@Throws(HttpException::class)
 inline fun <T:Any> Response<T>.getOrThrow(onFailure: (error: HttpException) -> Unit): T {
     this.onSuccess { return it }
     this.onFailure(onFailure)
