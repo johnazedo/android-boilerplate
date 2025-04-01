@@ -75,7 +75,7 @@ open class ABViewModel<S: State, A: Action>(
         )
     }
 
-    protected fun <I> showError(block: () -> PresentationError) {
+    protected fun showError(block: () -> PresentationError) {
         val newError = block()
         _action.value = OneShotWrapper.of(
             ABAction.ShowError(newError)

@@ -1,6 +1,7 @@
 package com.lemonade.android_boilerplate.http
 import retrofit2.HttpException
 import retrofit2.Response
+import kotlin.jvm.Throws
 
 const val START_OF_ERRORS_STATUS_CODE = 400
 
@@ -40,4 +41,18 @@ inline fun <T:Any> Response<T>.onFailure(block: (error: HttpException) -> Unit):
         block(error)
     }
     return this
+}
+
+/**
+ * getOrThrow is a extension function for the Response class. The main goal of this function is
+ * to presenter a simple way to handle errors when call a retrofit function that returns a Response
+ *
+ * @param onFailure A callback with HttpException as a parameter that returns nothing.
+ * @return T (data structure) if response is OK, otherwise throw HttpException.
+ */
+@Throws(HttpException::class)
+inline fun <T:Any> Response<T>.getOrThrow(onFailure: (error: HttpException) -> Unit): T {
+    this.onSuccess { return it }
+    this.onFailure(onFailure)
+    throw HttpException(this)
 }
