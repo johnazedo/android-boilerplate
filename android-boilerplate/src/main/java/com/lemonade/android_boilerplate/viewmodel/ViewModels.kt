@@ -56,8 +56,9 @@ open class ABViewModel<S: State, A: Action>(
     private val _action = MutableLiveData<OneShotWrapper<ABAction<A>>>()
     val getAction: LiveData<OneShotWrapper<ABAction<A>>> = _action
 
-    protected fun setState(block: () -> S) {
-        val newState = block()
+    protected fun setState(block: (state: S) -> S) {
+        if(getState.value == null) throw NotNullStateException()
+        val newState = block(getState.value!!)
         _state.value = newState
     }
 
@@ -108,3 +109,6 @@ open class ABViewModel<S: State, A: Action>(
      */
     open class Minimal: ABViewModel<NoUsedState, NoUsedAction>(NoUsedState())
 }
+
+class NotNullStateException: Throwable("Initial state cannot be null. Please, " +
+        "use ABViewModel.OnlyState or ABViewModel to use setState function")
