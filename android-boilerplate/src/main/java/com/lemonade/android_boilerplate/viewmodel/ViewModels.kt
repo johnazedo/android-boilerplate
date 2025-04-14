@@ -21,10 +21,10 @@ abstract class PresentationError(
  * UIError is a class that represents errors that
  * need be shown to the user.
  */
-abstract class UIError {
-    val message: String? = null
-    val resID: Int? = null
-}
+abstract class UIError(
+    var message: String? = null,
+    var resID: Int? = null
+)
 
 /**
  * State is a class that represents the state of information's
