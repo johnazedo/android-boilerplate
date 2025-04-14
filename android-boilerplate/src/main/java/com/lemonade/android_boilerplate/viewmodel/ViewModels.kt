@@ -5,6 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lemonade.android_boilerplate.activity.Destination
 
+@Deprecated(
+    message = "PresentationError is deprecated",
+    replaceWith = ReplaceWith("UIError")
+)
 /**
  * PresentationError is a class that represents errors that
  * need be shown to the user.
@@ -12,6 +16,15 @@ import com.lemonade.android_boilerplate.activity.Destination
 abstract class PresentationError(
     val message: String,
 )
+
+/**
+ * UIError is a class that represents errors that
+ * need be shown to the user.
+ */
+abstract class UIError {
+    val message: String? = null
+    val resID: Int? = null
+}
 
 /**
  * State is a class that represents the state of information's
@@ -37,7 +50,7 @@ abstract class Action
  * actions that can be performed in the application.
  */
 sealed class ABAction<A: Action> {
-    data class ShowError<A: Action>(val error: PresentationError): ABAction<A>()
+    data class ShowError<A: Action>(val error: UIError): ABAction<A>()
     data class NavigateTo<A: Action>(val destination: Destination): ABAction<A>()
     data class PerformAction<A: Action>(val action: A): ABAction<A>()
 }
@@ -76,7 +89,7 @@ open class ABViewModel<S: State, A: Action>(
         )
     }
 
-    protected fun showError(block: () -> PresentationError) {
+    protected fun showError(block: () -> UIError) {
         val newError = block()
         _action.value = OneShotWrapper.of(
             ABAction.ShowError(newError)

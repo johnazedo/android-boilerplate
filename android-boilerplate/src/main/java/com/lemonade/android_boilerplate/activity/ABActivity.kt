@@ -9,6 +9,7 @@ import com.lemonade.android_boilerplate.viewmodel.ABViewModel
 import com.lemonade.android_boilerplate.viewmodel.Action
 import com.lemonade.android_boilerplate.viewmodel.PresentationError
 import com.lemonade.android_boilerplate.viewmodel.State
+import com.lemonade.android_boilerplate.viewmodel.UIError
 
 abstract class ABActivity: AppCompatActivity() {
 
@@ -52,7 +53,7 @@ abstract class ABActivity: AppCompatActivity() {
         viewModel: ABViewModel<S, A>,
         handleState: (S) -> Unit = {},
         handleAction: (A) -> Unit = {},
-        handleError: (PresentationError) -> Unit = {}
+        handleError: (UIError) -> Unit = {}
     ) {
         viewModel.getState.observe(this) { state -> handleState(state) }
         viewModel.getAction.observe(this) { wrapper ->
