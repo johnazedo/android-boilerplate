@@ -9,8 +9,8 @@ import com.lemonade.android_boilerplate.activity.Destination
 import com.lemonade.android_boilerplate.viewmodel.ABAction
 import com.lemonade.android_boilerplate.viewmodel.ABViewModel
 import com.lemonade.android_boilerplate.viewmodel.Action
-import com.lemonade.android_boilerplate.viewmodel.PresentationError
 import com.lemonade.android_boilerplate.viewmodel.State
+import com.lemonade.android_boilerplate.viewmodel.UIError
 
 /**
  * onReceiveEvent must be add into onCreate of your activity.
@@ -27,7 +27,7 @@ inline fun <reified S: State, reified A: Action> Fragment.onReceiveEvent(
     viewModel: ABViewModel<S, A>,
     crossinline handleState: (S) -> Unit = {},
     crossinline handleAction: (A) -> Unit = {},
-    crossinline handleError: (PresentationError) -> Unit = {}
+    crossinline handleError: (UIError) -> Unit = {}
     ) {
     viewModel.getState.observe(this) { state -> handleState(state) }
     viewModel.getAction.observe(this) { wrapper ->

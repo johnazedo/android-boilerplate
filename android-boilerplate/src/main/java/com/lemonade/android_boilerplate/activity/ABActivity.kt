@@ -9,6 +9,7 @@ import com.lemonade.android_boilerplate.viewmodel.ABViewModel
 import com.lemonade.android_boilerplate.viewmodel.Action
 import com.lemonade.android_boilerplate.viewmodel.PresentationError
 import com.lemonade.android_boilerplate.viewmodel.State
+import com.lemonade.android_boilerplate.viewmodel.UIError
 
 abstract class ABActivity: AppCompatActivity() {
 
@@ -48,11 +49,11 @@ abstract class ABActivity: AppCompatActivity() {
      * @param handleError A function to handle presentation errors.
      * It is not mandatory and the default value is an empty lambda.
      */
-    protected inline fun <reified S: State, reified A: Action> onReceiveEvent(
+    protected fun <S: State, A: Action> onReceiveEvent(
         viewModel: ABViewModel<S, A>,
-        crossinline handleState: (S) -> Unit = {},
-        crossinline handleAction: (A) -> Unit = {},
-        crossinline handleError: (PresentationError) -> Unit = {}
+        handleState: (S) -> Unit = {},
+        handleAction: (A) -> Unit = {},
+        handleError: (UIError) -> Unit = {}
     ) {
         viewModel.getState.observe(this) { state -> handleState(state) }
         viewModel.getAction.observe(this) { wrapper ->
