@@ -1,6 +1,5 @@
 package com.lemonade.android_boilerplate.viewmodel
 
-import android.util.Log
 
 /**
  * This class is used to ensure that state events are
