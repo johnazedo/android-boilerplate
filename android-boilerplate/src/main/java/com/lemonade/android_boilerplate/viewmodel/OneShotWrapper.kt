@@ -1,5 +1,6 @@
 package com.lemonade.android_boilerplate.viewmodel
 
+
 /**
  * This class is used to ensure that state events are
  * only shoot once. This is necessary, because when the
@@ -41,6 +42,7 @@ class OneShotWrapper<out T>() {
     fun onValidContent(callback: (T) -> Unit) {
         if(hasBeenHandled.not() && content != null) {
             callback(content!!)
+            hasBeenHandled = true
         }
     }
 
