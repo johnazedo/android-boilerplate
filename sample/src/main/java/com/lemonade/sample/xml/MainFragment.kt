@@ -1,4 +1,4 @@
-package com.lemonade.sample
+package com.lemonade.sample.xml
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.lemonade.android_boilerplate.fragment.onReceiveEvent
-import com.lemonade.sample.databinding.MainFragmentBinding
+import com.lemonade.sample.databinding.XmlMainFragmentBinding
 
 class MainFragment: Fragment() {
 
-    private var _binding: MainFragmentBinding? = null
+    private var _binding: XmlMainFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel = MainFragmentViewModel()
 
@@ -20,7 +20,7 @@ class MainFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = XmlMainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
