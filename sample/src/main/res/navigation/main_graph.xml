@@ -6,19 +6,19 @@
 
     <fragment
         android:id="@+id/login_fragment"
-        android:name="com.lemonade.sample.LoginFragment"
+        android:name="com.lemonade.sample.xml.LoginFragment"
         android:label="LoginFragment"
         />
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.lemonade.sample.HomeFragment"
+        android:name="com.lemonade.sample.xml.HomeFragment"
         android:label="HomeFragment"
         />
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.lemonade.sample.MainFragment"
+        android:name="com.lemonade.sample.xml.MainFragment"
         android:label="MainFragment"
         />
 

@@ -22,4 +22,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Android Boilerplate"
 include(":android-boilerplate")
+include(":android-boilerplate-compose")
 include(":sample")

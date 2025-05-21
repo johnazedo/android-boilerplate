@@ -1,6 +1,7 @@
-package com.lemonade.sample
+package com.lemonade.sample.xml
 
 import com.lemonade.android_boilerplate.activity.Destination
+import com.lemonade.sample.R
 
 /*
  * To represent navigation you have two choices,

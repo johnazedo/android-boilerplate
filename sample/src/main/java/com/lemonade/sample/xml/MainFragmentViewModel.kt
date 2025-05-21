@@ -1,4 +1,4 @@
-package com.lemonade.sample
+package com.lemonade.sample.xml
 
 import com.lemonade.android_boilerplate.viewmodel.ABViewModel
 
