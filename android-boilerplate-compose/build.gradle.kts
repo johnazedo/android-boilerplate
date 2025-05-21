@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.lemonade.android_boilerplate_compose"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -32,6 +32,9 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
 }
 
