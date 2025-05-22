@@ -193,6 +193,36 @@ Now. Is possible to use `navigateTo` in any fragment viewModel linked with MainA
 
 If is needed to use more than a activity, use a Action to navigate to another activity and make the same setup for the new component.
 
+### Extension functions
+
+You can use ViewModel.coroutineRunCatching instead withContext:
+```kotlin
+// Use this
+viewModelScope.launch {
+    coroutineRunCatching(dispatcher) { 
+        // suspend fun
+    }.onSuccess { 
+        // handle success
+    }.onFailure { 
+        //handle error
+    }
+}
+
+// Instead
+viewModelScope.launch {
+    withContext(dispatcher) {
+        runCatching {
+            // suspend fun
+        }.onSuccess { 
+            // handle success
+        }.onFailure { 
+            // handle error
+        }
+    }
+}
+```
+
+
 ## Features for Jetpack-Compose
 Package: `android-boilerplate-compose`
 
