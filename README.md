@@ -33,7 +33,7 @@ Concepts:
 - UIError (UIError): For handling user-facing errors;
 - OneShotWrapper: Wrapper to prevent LiveData from emitting the same event multiple times.
 
-#### ABViewModel
+### ABViewModel
 
 The ABViewModel is an abstracted base class designed to manage state, actions, and UI events in a clean and scalable way using LiveData and Kotlin's type system.
 It is intended to be subclassed depending on your use case, providing variants:
@@ -114,7 +114,7 @@ class FormViewModel : ABViewModel.OnlyAction<FormAction>()
 class FormViewModel : ABViewModel.Minimal()
 ```
 
-#### Navigation
+### Navigation
 
 To use navigation with this package is necessary to make some changes in your Main Activity. First
 is important to create a nav graph in navigation resource folder and set this graph into Main Activity layout.
@@ -196,6 +196,7 @@ If is needed to use more than a activity, use a Action to navigate to another ac
 ## Features for Jetpack-Compose
 Package: `android-boilerplate-compose`
 
+This feature is coming soon.
 
 ## Contributing
 
