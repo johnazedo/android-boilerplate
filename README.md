@@ -104,10 +104,10 @@ private fun handleError(error: UIError) {
 If the screen is simple and does not have actions, or state or the both, is possible to use the ABViewModel variations
 ```kotlin
 
-// To handle only with state
+// To handle only with state, navigation and error handle
 class FormViewModel : ABViewModel.OnlyState<FormState>(FormState())
 
-// To handle only with action
+// To handle only with action, navigation and error handle
 class FormViewModel : ABViewModel.OnlyAction<FormAction>()
 
 // To use only navigation and error handle
