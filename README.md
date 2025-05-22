@@ -2,11 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Android Boilerplate is a library designed to simplify the implementation of the Model-View-ViewModel (MVVM) architectural pattern in Kotlin-based projects. This library aims to streamline the development process by providing essential tools and components that facilitate a clean separation of concerns, promoting scalable and maintainable codebases.
+Android Boilerplate is a library designed to simplify the implementation of the Model-View-ViewModel (MVVM) and Model-View-Intent (MVI) architectural pattern in Kotlin-based projects. This library aims to streamline the development process by providing essential tools and components that facilitate a clean separation of concerns, promoting scalable and maintainable codebases.
 
 ## Features
 
 - **Simplified MVVM Implementation**: Provides base classes and utilities to reduce boilerplate code associated with the MVVM pattern.
+- **Simplified MVI Implementation**: Provides base classes and utilities to reduce boilerplate code associated with the MVI pattern.
 - **Kotlin-Friendly**: Leverages Kotlin's language features to offer concise and expressive APIs.
 - **Sample Application**: Includes a sample project demonstrating the library's integration and usage.
 
