@@ -70,8 +70,17 @@ open class ABViewModel<S: State, A: Action>(
         initialState: S
     ): ABViewModel<S, NoUsedAction>(initialState)
 
+
+    /**
+     * OnlyAction is a subclass of ABViewModel that only handles with one time events.
+     * When this subclass is used you have access to [ABViewModel.performAction] or
+     * [EventLaunchEffect]. The generic type must be children of [Action].
+     */
+    class OnlyAction<A: Action>:  ABViewModel<NoUsedState, A>(NoUsedState())
+
     class DefaultAction: Action(DEFAULT_KEY)
     class NoUsedAction: Action(DEFAULT_KEY)
+    class NoUsedState: State()
 
     companion object {
         const val DEFAULT_KEY = "DEFAULT_KEY"
