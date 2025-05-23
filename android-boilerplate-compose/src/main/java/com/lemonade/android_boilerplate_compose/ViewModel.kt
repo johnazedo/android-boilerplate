@@ -66,7 +66,7 @@ open class ABViewModel<S: State, A: Action>(
      *
      * @param initialState The initial state of the ViewModel.
      */
-    class OnlyState<S: State>(
+    open class OnlyState<S: State>(
         initialState: S
     ): ABViewModel<S, NoUsedAction>(initialState)
 
