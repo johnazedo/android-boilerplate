@@ -38,10 +38,10 @@ Concepts:
 The ABViewModel is an abstracted base class designed to manage state, actions, and UI events in a clean and scalable way using LiveData and Kotlin's type system.
 It is intended to be subclassed depending on your use case, providing variants:
 
-- ABViewModel – supports all features;
-- ABViewModel.OnlyState – only manages State, Navigation and Error reporting (No Action);
-- ABViewModel.OnlyAction – only manages Action, Navigation and Error reporting (No State);
-- ABViewModel.Minimal – only handles Navigation and Error reporting.
+- `ABViewModel` – supports all features;
+- `ABViewModel.OnlyState` – only manages State, Navigation and Error reporting (No Action);
+- `ABViewModel.OnlyAction` – only manages Action, Navigation and Error reporting (No State);
+- `ABViewModel.Minimal` – only handles Navigation and Error reporting.
 
 It is possible use the state feature and one time events without create a generic class for it:
 
