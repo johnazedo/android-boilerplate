@@ -82,17 +82,17 @@ open class ABViewModel<S: State, A: Action>(
         )
     }
 
-    protected fun navigateTo(block: () -> Destination) {
-        val newDestination = block()
-        _action.value = OneShotWrapper.of(
-            ABAction.NavigateTo(newDestination)
-        )
-    }
-
     protected fun showError(block: () -> UIError) {
         val newError = block()
         _action.value = OneShotWrapper.of(
             ABAction.ShowError(newError)
+        )
+    }
+
+    fun navigateTo(block: () -> Destination) {
+        val newDestination = block()
+        _action.value = OneShotWrapper.of(
+            ABAction.NavigateTo(newDestination)
         )
     }
 
