@@ -226,7 +226,86 @@ viewModelScope.launch {
 ## Features for Jetpack-Compose
 Package: `android-boilerplate-compose`
 
-This feature is coming soon.
+The Compose package mirrors the same concepts used by the XML package — `State`, `Action`, one-shot events — re-implemented on top of Kotlin's `StateFlow` and `LaunchedEffect`.
+
+Concepts:
+- State (State): Represents the current screen data (usually a data class);
+- Action (Action): Represents one-time events (navigation, dialogs, toasts, etc.);
+- Event: A wrapper that guarantees an `Action` is consumed only once, even when delivered through a `StateFlow`.
+
+### ABViewModel
+
+`ABViewModel` is an abstracted base class designed to manage state and one-shot actions in a Compose app. Internally it exposes two `StateFlow`s:
+
+- `state`: the current UI state. Multiple collectors always receive the latest value.
+- `action`: an `Event<A>?` wrapping a one-shot action. Each emission must be wrapped in a brand-new `Event` (the library does this for you) so the `StateFlow`'s equality-based change detection re-fires.
+
+It is intended to be subclassed depending on your use case, providing variants:
+
+- `ABViewModel` – supports all features (State + Action);
+- `ABViewModel.OnlyState` – only manages State (No Action);
+- `ABViewModel.OnlyAction` – only manages Action (No State).
+
+Define your state and action, and use `updateState` to mutate the state and `performAction` to push a one-shot event:
+
+```kotlin
+data class FormState(val name: String = "", val isLoading: Boolean = false) : State()
+
+sealed class FormAction : Action() {
+    object SubmitSuccess : FormAction()
+}
+
+class FormViewModel : ABViewModel<FormState, FormAction>(FormState()) {
+
+    fun submitForm(name: String) {
+        updateState { it.copy(isLoading = true) }
+
+        // Simulate API
+        if (api.isOK()) {
+            performAction { FormAction.SubmitSuccess }
+            updateState { it.copy(isLoading = false, name = name) }
+        }
+    }
+}
+```
+
+If the screen is simple and does not have actions, or state, you can use the `ABViewModel` variations:
+
+```kotlin
+
+// To handle only with state
+class FormViewModel : ABViewModel.OnlyState<FormState>(FormState())
+
+// To handle only one-time events
+class FormViewModel : ABViewModel.OnlyAction<FormAction>()
+```
+
+### EventLaunchEffect
+
+`EventLaunchEffect` is a `@Composable` that observes the `Event<Action>?` produced by `ABViewModel.action` and invokes a `block` for each new emission. After the block completes, it calls `consume` (typically `viewModel::consumeAction`) so the underlying `StateFlow` goes back to `null` and the next emission — even of a structurally identical action — is observable.
+
+```kotlin
+@Composable
+fun FormScreen(viewModel: FormViewModel = viewModel()) {
+    val state = viewModel.state.collectAsState()
+    val action = viewModel.action.collectAsState()
+
+    EventLaunchEffect(
+        event = action.value,
+        consume = viewModel::consumeAction
+    ) { action ->
+        when (action) {
+            FormAction.SubmitSuccess -> {
+                // TODO Handle one-time event
+            }
+        }
+    }
+
+    // TODO Use state.value to render UI
+}
+```
+
+The `LaunchedEffect` is keyed on the `Event` instance, not on any field of the action. Because `performAction` always allocates a fresh `Event`, a new effect is started for every emission without needing a `key` field on `Action` itself.
 
 ## Contributing
 
